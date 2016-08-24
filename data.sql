@@ -1,0 +1,9 @@
+insert into User (ID, age, name, createdDate,isAdmin) values(1, 22, 'Valera1',now(), 0);
+insert into User (ID, age, name, createdDate,isAdmin) values(2, 12, 'Valera2',now(), 1);
+insert into User (ID, age, name, createdDate,isAdmin) values(3, 32, 'Valera3',now(), 0);
+insert into User (ID, age, name, createdDate,isAdmin) values(4, 42, 'Valera4',now(), 0);
+insert into User (ID, age, name, createdDate,isAdmin) values(5, 11, 'Valera5',now(), 1);
+insert into User (ID, age, name, createdDate,isAdmin) values(6, 13, 'Valera6',now(), 0);
+insert into User (ID, age, name, createdDate,isAdmin) values(7, 14, 'Valera7',now(), 1);
+insert into User (ID, age, name, createdDate,isAdmin) values(8, 15, 'Valera',now(), 0);
+insert into User (ID, age, name, createdDate,isAdmin) values(9, 16, 'Valera',now(), 0);
