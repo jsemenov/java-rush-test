@@ -12,3 +12,8 @@ maven 3.3.3
 tomcat 8.0.23
 mySQL 5.6.29
 
+release notes:
+
+version 1.0.0
+
+need to add paging to the main page.
