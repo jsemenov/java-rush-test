@@ -3,12 +3,14 @@ package net.semenov.controller;
 import net.semenov.model.User;
 import net.semenov.service.UserService;
 import org.apache.log4j.Logger;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -24,21 +26,29 @@ public class MainController {
     private UserService userService;
 
 
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public String getPersons(Model model) {
+    @RequestMapping(value = "/users")
+    public ModelAndView listOfUsers(@RequestParam(required = false) Integer page) {
+        ModelAndView modelAndView = new ModelAndView("list-of-users");
 
-        logger.debug("Received request to show all users");
-
-        // Retrieve all users by delegating the call to userService
         List<User> users = userService.getAll();
+        PagedListHolder<User> pagedListHolder = new PagedListHolder<User>(users);
+        pagedListHolder.setPageSize(5);
+        modelAndView.addObject("maxPages", pagedListHolder.getPageCount());
 
-        // Attach users to the Model
-        model.addAttribute("users", users);
+        if (page == null || page < 1 || page > pagedListHolder.getPageCount()) page = 1;
 
-        // This will resolve to /WEB-INF/jsp/userspage.jsp
-        return "userspage";
+        modelAndView.addObject("page", page);
+        if (page == null || page < 1 || page > pagedListHolder.getPageCount()) {
+            pagedListHolder.setPage(0);
+            modelAndView.addObject("users", pagedListHolder.getPageList());
+        } else if (page <= pagedListHolder.getPageCount()) {
+            pagedListHolder.setPage(page - 1);
+            modelAndView.addObject("users", pagedListHolder.getPageList());
+        }
+
+        modelAndView.setViewName("userspage");
+        return modelAndView;
     }
-
 
     @RequestMapping(value = "/users/add", method = RequestMethod.GET)
     public String getAdd(Model model) {
