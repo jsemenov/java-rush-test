@@ -17,3 +17,7 @@ release notes:
 version 1.0.0
 
 need to add paging to the main page.
+
+version 1.0.1
+
+add pagination. UI Fix for users page.
